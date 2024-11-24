@@ -1,15 +1,19 @@
 package com.hmdp.controller;
 
 
+import com.hmdp.constant.RedisConstants;
 import com.hmdp.dto.Result;
 import com.hmdp.entity.ShopType;
 import com.hmdp.service.IShopTypeService;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -24,11 +28,19 @@ import java.util.List;
 public class ShopTypeController {
     @Resource
     private IShopTypeService typeService;
+    @Resource
+    private RedisTemplate<String, Object> redisTemplate;
 
     @GetMapping("list")
     public Result queryTypeList() {
+        String cacheKey = RedisConstants.CACHE_SHOP_KEY + "list";
+        List<ShopType> list = (List<ShopType>) redisTemplate.opsForValue().get(cacheKey);
+        if (list != null) {
+            return Result.success(list);
+        }
         List<ShopType> typeList = typeService
                 .query().orderByAsc("sort").list();
-        return Result.ok(typeList);
+        redisTemplate.opsForValue().set(cacheKey, typeList, RedisConstants.CACHE_SHOP_TTL, TimeUnit.MINUTES);
+        return Result.success(typeList);
     }
 }
