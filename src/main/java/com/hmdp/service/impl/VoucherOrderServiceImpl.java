@@ -186,7 +186,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
     @Transactional
     public void saveVoucherOrder(VoucherOrder voucherOrder) {
         // 判断用户是否已经购买过该优惠券
-        Long userId = UserHolder.getUser().getId();
+        Long userId = voucherOrder.getUserId();
         Long voucherId = voucherOrder.getVoucherId();
         Integer count = lambdaQuery().eq(VoucherOrder::getUserId, userId)
                 .eq(VoucherOrder::getVoucherId, voucherId)

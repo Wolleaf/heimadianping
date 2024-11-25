@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmdp.mapper.ShopMapper">
+
+    <select id="selectBatchWithOrderByField" resultType="com.hmdp.entity.Shop">
+        select * from tb_shop
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+        order by field
+        <foreach collection="ids" item="id" open="(id, " separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

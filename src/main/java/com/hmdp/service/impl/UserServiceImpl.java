@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.hmdp.constant.LoginConstants;
 import com.hmdp.constant.RedisConstants;
 import com.hmdp.constant.SystemConstants;
 import com.hmdp.dto.LoginFormDTO;
@@ -16,8 +17,10 @@ import com.hmdp.constant.MessageConstants;
 import com.hmdp.utils.RegexUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -36,6 +39,8 @@ import java.util.concurrent.TimeUnit;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     private final RedisTemplate<String, Object> redisTemplate;
+    private final HttpServletRequest request;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Override
     public void sendCode(String phone) {
@@ -84,5 +89,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 设置token有效期
         redisTemplate.expire(tokenKey, RedisConstants.LOGIN_USER_TTL, TimeUnit.MINUTES);
         return token;
+    }
+
+    @Override
+    public void logout() {
+        String token = request.getHeader(LoginConstants.TOKEN_NAME);
+        String key = RedisConstants.LOGIN_USER_KEY + token;
+        stringRedisTemplate.delete(key);
     }
 }
