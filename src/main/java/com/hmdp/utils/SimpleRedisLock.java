@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SimpleRedisLock implements IRedisLock{
 
-    private String key;
+    private final String key;
     private StringRedisTemplate stringRedisTemplate;
     private static final String ID_PREFIX = UUID.randomUUID().toString(true);
     private static final DefaultRedisScript<Long> UNLOCK_SCRIPT;

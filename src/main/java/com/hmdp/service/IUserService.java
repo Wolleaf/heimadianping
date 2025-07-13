@@ -36,4 +36,15 @@ public interface IUserService extends IService<User> {
      * 登出功能
      */
     void logout();
+
+    /**
+     * 签到功能
+     */
+    void sign();
+
+    /**
+     * 统计连续签到天数
+     * @return
+     */
+    Integer signCount();
 }

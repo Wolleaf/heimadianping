@@ -59,7 +59,8 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
     private final RedissonClient redissonClient;
     private IVoucherOrderService proxy;
 
-    @PostConstruct
+    // fixme 这里不知道是怎么回事，等之后再回来看看
+//    @PostConstruct
     private void init() {
         executorService.submit(new Runnable() {
             String queueName = "stream.orders";
