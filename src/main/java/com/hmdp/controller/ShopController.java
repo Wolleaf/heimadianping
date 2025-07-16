@@ -10,6 +10,7 @@ import com.hmdp.constant.SystemConstants;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -33,7 +34,7 @@ public class ShopController {
      * @return 商铺详情数据
      */
     @GetMapping("/{id}")
-    public Result queryShopById(@PathVariable("id") Long id) {
+    public Result queryShopById(@PathVariable("id") @NotNull Long id) {
         Shop shop = shopService.queryById(id);
         return Result.success(shop);
     }
