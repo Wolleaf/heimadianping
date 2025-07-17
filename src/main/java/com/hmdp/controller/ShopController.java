@@ -2,6 +2,8 @@ package com.hmdp.controller;
 
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hmdp.dto.Result;
 import com.hmdp.entity.Shop;
@@ -34,9 +36,17 @@ public class ShopController {
      * @return 商铺详情数据
      */
     @GetMapping("/{id}")
+    @SentinelResource(value = "queryShopById", blockHandler = "queryShopByIdBlockHandler")
     public Result queryShopById(@PathVariable("id") @NotNull Long id) {
         Shop shop = shopService.queryById(id);
         return Result.success(shop);
+    }
+
+    /**
+     * 限流降级处理方法
+     */
+    public Result queryShopByIdBlockHandler(@PathVariable("id") Long id, BlockException ex) {
+        return Result.error("系统繁忙，请稍后再试");
     }
 
     /**

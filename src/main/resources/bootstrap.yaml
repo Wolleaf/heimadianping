@@ -29,31 +29,32 @@ spring:
     nacos:
       config:
         server-addr: localhost:8848
-        namespace: d8d6d3cb-aba0-4d04-807c-2c8ebccd8be4
+        namespace: d1b3bb02-077e-45f8-8165-68ce5d2dcf8d
         group: dev
         file-extension: yml            # 配置文件格式（支持 properties/yml）
         refresh-enabled: true           # 启用配置动态刷新（默认 true）
       discovery:
         server-addr: localhost:8848
-        namespace: d8d6d3cb-aba0-4d04-807c-2c8ebccd8be4
+        namespace: d1b3bb02-077e-45f8-8165-68ce5d2dcf8d
         group: dev
     sentinel:
       transport:
         dashboard: localhost:8858
+        port: 8720
+      enabled: true
+      http-method-specify: true
+      eager: true # 启动时加载所有规则，不然要访问过一次后才看得见
       datasource:
         flow:
           nacos:
             server-addr: localhost:8848
-#            username: nacos
-#            password: nacos
-            namespace: d8d6d3cb-aba0-4d04-807c-2c8ebccd8be4
+            username: nacos
+            password: nacos
+            namespace: d1b3bb02-077e-45f8-8165-68ce5d2dcf8d
             group-id: dev
             data-id: hmdp-flow-rules
             data-type: json
             rule-type: flow
-      enabled: true
-      http-method-specify: true
-      eager: true # 启动时加载所有规则，不然要访问过一次后才看得见
 mybatis-plus:
   type-aliases-package: com.hmdp.entity # 别名扫描包
 logging:
