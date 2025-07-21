@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.constant.MessageConstants;
 import com.hmdp.constant.RedisConstants;
 import com.hmdp.constant.SystemConstants;
-import com.hmdp.entity.Shop;
+import com.hmdp.domain.entity.Shop;
 import com.hmdp.exception.ShopException;
 import com.hmdp.mapper.ShopMapper;
 import com.hmdp.service.IShopService;

@@ -2,10 +2,9 @@ package com.hmdp.controller;
 
 
 import com.hmdp.constant.RedisConstants;
-import com.hmdp.dto.Result;
-import com.hmdp.entity.ShopType;
+import com.hmdp.domain.dto.Result;
+import com.hmdp.domain.entity.ShopType;
 import com.hmdp.service.IShopTypeService;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

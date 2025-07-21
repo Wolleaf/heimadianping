@@ -1,6 +1,6 @@
 package com.hmdp.config;
 
-import com.hmdp.dto.Result;
+import com.hmdp.domain.dto.Result;
 import com.hmdp.exception.BaseException;
 import com.hmdp.exception.LoginException;
 import lombok.extern.slf4j.Slf4j;

@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hmdp.constant.MessageConstants;
 import com.hmdp.constant.RedisConstants;
-import com.hmdp.entity.VoucherOrder;
+import com.hmdp.domain.entity.VoucherOrder;
 import com.hmdp.exception.VoucherException;
 import com.hmdp.mapper.SeckillVoucherMapper;
 import com.hmdp.mapper.VoucherOrderMapper;

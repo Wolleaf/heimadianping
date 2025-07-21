@@ -2,13 +2,11 @@ package com.hmdp.controller;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hmdp.dto.Result;
-import com.hmdp.dto.ScrollResult;
-import com.hmdp.dto.UserDTO;
-import com.hmdp.entity.Blog;
-import com.hmdp.entity.User;
+import com.hmdp.domain.dto.Result;
+import com.hmdp.domain.dto.ScrollResult;
+import com.hmdp.domain.dto.UserDTO;
+import com.hmdp.domain.entity.Blog;
 import com.hmdp.service.IBlogService;
-import com.hmdp.service.IUserService;
 import com.hmdp.constant.SystemConstants;
 import com.hmdp.utils.UserHolder;
 import io.swagger.annotations.ApiOperation;

@@ -5,13 +5,15 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.hmdp.dto.Result;
-import com.hmdp.entity.Shop;
+import com.hmdp.domain.dto.Result;
+import com.hmdp.domain.dto.ShopDTO;
+import com.hmdp.domain.entity.Shop;
 import com.hmdp.service.IShopService;
 import com.hmdp.constant.SystemConstants;
+import com.hmdp.transfer.DTO2POConverter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -24,11 +26,12 @@ import java.util.List;
  * @since 2021-12-22
  */
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/shop")
 public class ShopController {
 
-    @Resource
-    public IShopService shopService;
+    private final IShopService shopService;
+    private final DTO2POConverter dto2POConverter;
 
     /**
      * 根据id查询商铺信息
@@ -51,11 +54,12 @@ public class ShopController {
 
     /**
      * 新增商铺信息
-     * @param shop 商铺数据
+     * @param shopDTO 商铺数据
      * @return 商铺id
      */
     @PostMapping
-    public Result saveShop(@RequestBody Shop shop) {
+    public Result saveShop(@RequestBody ShopDTO shopDTO) {
+        Shop shop = dto2POConverter.shopDTO2PO(shopDTO);
         // 写入数据库
         shopService.save(shop);
         // 返回店铺id
@@ -64,11 +68,12 @@ public class ShopController {
 
     /**
      * 更新商铺信息
-     * @param shop 商铺数据
+     * @param shopDTO 商铺数据
      * @return 无
      */
     @PutMapping
-    public Result updateShop(@RequestBody Shop shop) {
+    public Result updateShop(@RequestBody ShopDTO shopDTO) {
+        Shop shop = dto2POConverter.shopDTO2PO(shopDTO);
         // 写入数据库
         shopService.updateByIdCache(shop);
         return Result.success();

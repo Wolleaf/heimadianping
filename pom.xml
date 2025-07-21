@@ -19,6 +19,7 @@
         <spring.cloud.alibaba.version>2.2.9.RELEASE</spring.cloud.alibaba.version>
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
         <org.mapstruct.version>1.5.1.Final</org.mapstruct.version>
+        <elasticsearch.version>7.17.5</elasticsearch.version>
     </properties>
 
     <dependencies>
@@ -62,11 +63,32 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <!--        es-->
+        <!-- Spring Data Elasticsearch 集成 -->
         <dependency>
-            <groupId>co.elastic.clients</groupId>
-            <artifactId>elasticsearch-java</artifactId>
-            <version>7.17.5</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <exclusions>
+                <!-- 排除 Spring Boot 自带的旧版 ES 客户端 -->
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- 手动添加 ES 7.17.5 客户端 -->
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>${elasticsearch.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>${elasticsearch.version}</version>
         </dependency>
         <!--        数据操作redis依赖-->
         <dependency>
@@ -74,12 +96,12 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
             <exclusions>
                 <exclusion>
-                    <artifactId>spring-data-redis</artifactId>
                     <groupId>org.springframework.data</groupId>
+                    <artifactId>spring-data-redis</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>lettuce-core</artifactId>
                     <groupId>io.lettuce</groupId>
+                    <artifactId>lettuce-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

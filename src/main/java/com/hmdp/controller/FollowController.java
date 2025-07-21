@@ -1,8 +1,8 @@
 package com.hmdp.controller;
 
 
-import com.hmdp.dto.Result;
-import com.hmdp.dto.UserDTO;
+import com.hmdp.domain.dto.Result;
+import com.hmdp.domain.dto.UserDTO;
 import com.hmdp.service.IFollowService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

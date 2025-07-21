@@ -1,8 +1,8 @@
 package com.hmdp.service;
 
-import com.hmdp.dto.ScrollResult;
-import com.hmdp.dto.UserDTO;
-import com.hmdp.entity.Blog;
+import com.hmdp.domain.dto.ScrollResult;
+import com.hmdp.domain.dto.UserDTO;
+import com.hmdp.domain.entity.Blog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
