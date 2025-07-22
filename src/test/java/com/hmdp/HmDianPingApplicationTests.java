@@ -18,6 +18,7 @@ import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 
 import javax.annotation.Resource;
 import java.io.FileWriter;
@@ -43,6 +44,8 @@ class HmDianPingApplicationTests {
     private IUserService userService;
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
+    @Resource
+    private KafkaTemplate<String, String> kafkaTemplate;
 
     @Test
     public void testSaveShop() throws InterruptedException {
@@ -99,5 +102,10 @@ class HmDianPingApplicationTests {
             }
             stringRedisTemplate.opsForGeo().add(key, list);
         }
+    }
+
+    @Test
+    public void testKafka() {
+        kafkaTemplate.send("hmdp", "hello kafka");
     }
 }

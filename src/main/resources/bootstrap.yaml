@@ -23,6 +23,16 @@ spring:
         max-idle: 10
         min-idle: 1
         time-between-eviction-runs: 10s
+  kafka:
+    bootstrap-servers: 192.168.8.14:9092  # Kafka 集群地址
+    consumer:
+      group-id: hmdp-group               # 消费者组 ID
+      auto-offset-reset: earliest      # 无偏移量时从最早消息开始消费
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
   elasticsearch:
     rest:
       uris: http://localhost:9200
