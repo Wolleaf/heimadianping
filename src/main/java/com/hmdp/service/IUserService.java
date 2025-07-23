@@ -27,10 +27,9 @@ public interface IUserService extends IService<User> {
      * 登录功能
      *
      * @param loginForm
-     * @param session
      * @return
      */
-    String login(LoginFormDTO loginForm, HttpSession session);
+    String login(LoginFormDTO loginForm);
 
     /**
      * 登出功能

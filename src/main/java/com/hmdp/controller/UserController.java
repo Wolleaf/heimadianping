@@ -1,20 +1,23 @@
 package com.hmdp.controller;
 
 
-import cn.hutool.core.bean.BeanUtil;
+import com.hmdp.convert.UserConverter;
 import com.hmdp.domain.dto.LoginFormDTO;
 import com.hmdp.domain.dto.Result;
 import com.hmdp.domain.dto.UserDTO;
+import com.hmdp.domain.dto.UserInfoDTO;
 import com.hmdp.domain.entity.User;
 import com.hmdp.domain.entity.UserInfo;
 import com.hmdp.service.IUserInfoService;
 import com.hmdp.service.IUserService;
 import com.hmdp.utils.UserHolder;
+import com.hmdp.valid.PhoneNumber;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotNull;
 
 /**
  * <p>
@@ -25,21 +28,23 @@ import javax.servlet.http.HttpSession;
  * @since 2021-12-22
  */
 @Slf4j
+@RequiredArgsConstructor
+@Validated
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Resource
-    private IUserService userService;
+    private final IUserService userService;
 
-    @Resource
-    private IUserInfoService userInfoService;
+    private final IUserInfoService userInfoService;
+
+    private final UserConverter userConverter;
 
     /**
      * 发送手机验证码
      */
-    @PostMapping("code")
-    public Result sendCode(@RequestParam("phone") String phone) {
+    @PostMapping("/code")
+    public Result sendCode(@RequestParam("phone") @PhoneNumber String phone) {
         log.info("登录手机号: {}", phone);
         userService.sendCode(phone);
         return Result.success();
@@ -50,9 +55,9 @@ public class UserController {
      * @param loginForm 登录参数，包含手机号、验证码；或者手机号、密码
      */
     @PostMapping("/login")
-    public Result login(@RequestBody LoginFormDTO loginForm, HttpSession session){
-        log.info("登录参数：{}, 登录session：{}", loginForm, session);
-        String token = userService.login(loginForm, session);
+    public Result login(@RequestBody LoginFormDTO loginForm){
+        log.info("登录参数：{}", loginForm);
+        String token = userService.login(loginForm);
         return Result.success(token);
     }
 
@@ -72,23 +77,22 @@ public class UserController {
     }
 
     @GetMapping("/info/{id}")
-    public Result info(@PathVariable("id") Long userId){
+    public Result info(@PathVariable("id") @NotNull(message = "用户ID不能为空") Long userId){
         // 查询详情
         UserInfo info = userInfoService.getById(userId);
         if (info == null) {
             // 没有详情，应该是第一次查看详情
             return Result.success();
         }
-        info.setCreateTime(null);
-        info.setUpdateTime(null);
+        UserInfoDTO userInfoDTO = userConverter.userInfo2UserInfoDTO(info);
         // 返回
-        return Result.success(info);
+        return Result.success(userInfoDTO);
     }
 
     @GetMapping("/{id}")
-    public Result getUserById(@PathVariable("id") Long id) {
+    public Result getUserById(@PathVariable("id") @NotNull(message = "用户id不能为空") Long id) {
         User user = userService.getById(id);
-        UserDTO userDTO = BeanUtil.copyProperties(user, UserDTO.class);
+        UserDTO userDTO = userConverter.user2UserDTO(user);
         return Result.success(userDTO);
     }
 

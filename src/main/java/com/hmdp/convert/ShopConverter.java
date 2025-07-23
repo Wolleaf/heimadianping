@@ -1,11 +1,11 @@
-package com.hmdp.transfer;
+package com.hmdp.convert;
 
 import com.hmdp.domain.dto.ShopDTO;
 import com.hmdp.domain.entity.Shop;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface DTO2POConverter {
+public interface ShopConverter {
 
-    Shop shopDTO2PO(ShopDTO shopDTO);
+    Shop shopDTO2Shop(ShopDTO shopDTO);
 }

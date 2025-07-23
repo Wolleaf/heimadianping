@@ -10,7 +10,7 @@ import com.hmdp.domain.dto.ShopDTO;
 import com.hmdp.domain.entity.Shop;
 import com.hmdp.service.IShopService;
 import com.hmdp.constant.SystemConstants;
-import com.hmdp.transfer.DTO2POConverter;
+import com.hmdp.convert.ShopConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,7 @@ import java.util.List;
 public class ShopController {
 
     private final IShopService shopService;
-    private final DTO2POConverter dto2POConverter;
+    private final ShopConverter shopConverter;
 
     /**
      * 根据id查询商铺信息
@@ -59,7 +59,7 @@ public class ShopController {
      */
     @PostMapping
     public Result saveShop(@RequestBody ShopDTO shopDTO) {
-        Shop shop = dto2POConverter.shopDTO2PO(shopDTO);
+        Shop shop = shopConverter.shopDTO2Shop(shopDTO);
         // 写入数据库
         shopService.save(shop);
         // 返回店铺id
@@ -73,7 +73,7 @@ public class ShopController {
      */
     @PutMapping
     public Result updateShop(@RequestBody ShopDTO shopDTO) {
-        Shop shop = dto2POConverter.shopDTO2PO(shopDTO);
+        Shop shop = shopConverter.shopDTO2Shop(shopDTO);
         // 写入数据库
         shopService.updateByIdCache(shop);
         return Result.success();
