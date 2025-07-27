@@ -52,11 +52,10 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     @Override
     @Transactional
     public void updateByIdCache(Shop shop) {
-        Long id = shop.getId();
-        if (id == null) {
+        boolean flag = updateById(shop);
+        if (!flag) {
             throw new ShopException(MessageConstants.SHOP_NOT_FOUND);
         }
-        updateById(shop);
         String cacheKey = RedisConstants.CACHE_SHOP_KEY + shop.getId();
         stringRedisTemplate.delete(cacheKey);
     }

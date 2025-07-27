@@ -3,8 +3,8 @@ package com.hmdp.listener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-@Component
-public class KafkaConsumerService {
+//@Component
+public class KafkaConsumerServiceTest {
 
     @KafkaListener(topics = "hmdp", groupId = "hmdp-group")
     public void onMessage(String message) {

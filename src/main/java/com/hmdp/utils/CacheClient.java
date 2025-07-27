@@ -76,10 +76,11 @@ public class CacheClient {
         R r = daFallback.apply(id);
         if (r == null) {
             // 解决缓存穿透
-            set(key, "", time, unit);
+            this.set(key, "", time, unit);
+            return null;
         }
         // 存在则写入缓存，并设置过期时间
-        set(key, r, time, unit);
+        this.set(key, r, time, unit);
         return r;
     }
 

@@ -1,13 +1,9 @@
 package com.hmdp.domain.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -26,6 +22,7 @@ public class ShopDTO implements Serializable {
     /**
      * 主键
      */
+    @NotNull(message = "店铺id不能为空")
     private Long id;
 
     /**
