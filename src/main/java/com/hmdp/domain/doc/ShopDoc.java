@@ -37,8 +37,14 @@ public class ShopDoc {
     /**
      * 商铺类型的id
      */
-    @Field(type = FieldType.Long)
+    @Field(type = FieldType.Long, index = false)
     private Long typeId;
+
+    /**
+     * 商铺类型
+     */
+    @Field(type = FieldType.Keyword)
+    private String type;
 
     /**
      * 商铺图片，多个图片以','隔开

@@ -1,4 +1,4 @@
-package com.hmdp.utils;
+package com.hmdp.util;
 
 
 import com.hmdp.domain.dto.UserDTO;

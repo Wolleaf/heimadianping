@@ -1,6 +1,5 @@
-package com.hmdp.utils;
+package com.hmdp.util;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;

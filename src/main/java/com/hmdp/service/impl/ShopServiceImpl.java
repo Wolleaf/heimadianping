@@ -9,7 +9,7 @@ import com.hmdp.domain.entity.Shop;
 import com.hmdp.exception.ShopException;
 import com.hmdp.mapper.ShopMapper;
 import com.hmdp.service.IShopService;
-import com.hmdp.utils.CacheClient;
+import com.hmdp.util.CacheClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResult;

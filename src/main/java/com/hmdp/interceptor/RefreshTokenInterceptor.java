@@ -4,7 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.hmdp.constant.LoginConstants;
 import com.hmdp.constant.RedisConstants;
 import com.hmdp.domain.dto.UserDTO;
-import com.hmdp.utils.UserHolder;
+import com.hmdp.util.UserHolder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;

@@ -8,7 +8,7 @@ import com.hmdp.domain.dto.UserDTO;
 import com.hmdp.domain.entity.Blog;
 import com.hmdp.service.IBlogService;
 import com.hmdp.constant.SystemConstants;
-import com.hmdp.utils.UserHolder;
+import com.hmdp.util.UserHolder;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 

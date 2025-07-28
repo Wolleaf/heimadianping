@@ -9,8 +9,8 @@ import com.hmdp.domain.entity.Shop;
 import com.hmdp.domain.entity.User;
 import com.hmdp.service.IShopService;
 import com.hmdp.service.IUserService;
-import com.hmdp.utils.CacheClient;
-import com.hmdp.utils.RedisIdGenerator;
+import com.hmdp.util.CacheClient;
+import com.hmdp.util.RedisIdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -68,7 +68,7 @@ class HmDianPingApplicationTests {
     public void allUserLogin() {
         List<User> userList = userService.list();
         try (
-                FileWriter fw = new FileWriter("E:\\Project\\hm-dianping\\src\\main\\resources\\token.txt");
+                FileWriter fw = new FileWriter("E:\\Project\\hm-dianping\\src\\main\\resources\\token.txt")
         ) {
             StringBuilder sb = new StringBuilder();
             for (User user : userList) {

@@ -1,4 +1,4 @@
-package com.hmdp.repository.elasticsearch;
+package com.hmdp.repository.es;
 
 import com.hmdp.domain.doc.UserDoc;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;

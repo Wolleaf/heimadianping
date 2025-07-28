@@ -1,6 +1,6 @@
 package com.hmdp.config;
 
-import com.hmdp.properties.ElasticSearchProperties;
+import com.hmdp.property.ElasticSearchProperties;
 import org.apache.http.HttpHost;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;

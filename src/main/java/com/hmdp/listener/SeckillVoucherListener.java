@@ -14,7 +14,7 @@ public class SeckillVoucherListener {
 
     private final IVoucherOrderService voucherOrderService;
 
-    @KafkaListener(topics = KafkaTopicConstants.SECKILL_VOUCHER_ORDER, groupId = "hmdp-group")
+    @KafkaListener(topics = KafkaTopicConstants.SECKILL_VOUCHER_ORDER)
     public void seckillVoucherOrder(SeckillVoucherOrderDTO seckillVoucherOrderDTO) {
         // 构建优惠券订单对象
         VoucherOrder voucherOrder = new VoucherOrder();

@@ -1,6 +1,7 @@
 package com.hmdp.domain.dto.search;
 
 import lombok.Data;
+import org.springframework.data.elasticsearch.core.geo.GeoPoint;
 
 /**
  * <p>
@@ -36,13 +37,17 @@ public class ShopSearchDTO {
     /**
      * 经纬度，地理坐标点
      */
-    private Double x;
-    private Double y;
+    private GeoPoint location;  // 替换原有的x,y字段
 
     /**
-     * 均价，取整数
+     * 最小均价，取整数
      */
-    private Long avgPrice;
+    private Long minAvgPrice;
+
+    /**
+     * 最大均价，取整数
+     */
+    private Long maxAvgPrice;
 
     /**
      * 销量

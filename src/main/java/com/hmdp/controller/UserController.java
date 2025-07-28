@@ -10,7 +10,7 @@ import com.hmdp.domain.entity.User;
 import com.hmdp.domain.entity.UserInfo;
 import com.hmdp.service.IUserInfoService;
 import com.hmdp.service.IUserService;
-import com.hmdp.utils.UserHolder;
+import com.hmdp.util.UserHolder;
 import com.hmdp.valid.PhoneNumber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

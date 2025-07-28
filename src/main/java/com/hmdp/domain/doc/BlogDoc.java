@@ -27,10 +27,16 @@ public class BlogDoc {
     private Long id;
 
     /**
-     * 商户id
+     * 店铺id
      */
     @Field(type = FieldType.Long)
     private Long shopId;
+
+    /**
+     * 店铺名称
+     */
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")  // 商铺名称需中文分词
+    private String shopName;
 
     /**
      * 用户id

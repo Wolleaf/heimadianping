@@ -19,7 +19,8 @@
         <spring.cloud.alibaba.version>2.2.9.RELEASE</spring.cloud.alibaba.version>
         <spring.cloud.version>Hoxton.SR12</spring.cloud.version>
         <org.mapstruct.version>1.5.1.Final</org.mapstruct.version>
-        <elasticsearch.version>7.17.5</elasticsearch.version>
+        <elasticsearch.version>7.17.28</elasticsearch.version>
+<!--        <easyes.version>2.1.0</easyes.version>-->
     </properties>
 
     <dependencies>
@@ -79,7 +80,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <!-- 手动添加 ES 7.17.5 客户端 -->
+        <!-- 手动添加 ES 7.17.28 客户端 -->
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
@@ -90,6 +91,12 @@
             <artifactId>elasticsearch</artifactId>
             <version>${elasticsearch.version}</version>
         </dependency>
+<!--        &lt;!&ndash;        easy-es，简化es查询&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.dromara.easy-es</groupId>-->
+<!--            <artifactId>easy-es-boot-starter</artifactId>-->
+<!--            <version>${easyes.version}</version>-->
+<!--        </dependency>-->
         <!--        kafka-->
         <dependency>
             <groupId>org.springframework.kafka</groupId>

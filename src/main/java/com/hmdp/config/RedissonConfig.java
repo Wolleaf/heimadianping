@@ -1,6 +1,6 @@
 package com.hmdp.config;
 
-import com.hmdp.properties.RedisProperties;
+import com.hmdp.property.RedisProperties;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;

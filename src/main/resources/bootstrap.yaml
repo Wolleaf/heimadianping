@@ -74,3 +74,5 @@ logging:
   level:
     com.hmdp: debug
     org.springframework.data.elasticsearch: debug
+#easy-es:
+#  address: 127.0.0.1:9200
