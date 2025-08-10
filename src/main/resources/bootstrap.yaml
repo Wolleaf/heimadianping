@@ -24,7 +24,7 @@ spring:
         min-idle: 1
         time-between-eviction-runs: 10s
   kafka:
-    bootstrap-servers: 192.168.8.14:9092  # Kafka 集群地址
+    bootstrap-servers: 192.168.31.25:9092  # Kafka 集群地址
     consumer:
       group-id: hmdp-group               # 消费者组 ID
       auto-offset-reset: earliest      # 无偏移量时从最早消息开始消费
@@ -35,7 +35,7 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
   elasticsearch:
     rest:
-      uris: http://localhost:9200
+      uris: localhost
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
   cloud:
@@ -70,6 +70,28 @@ spring:
             rule-type: flow
 mybatis-plus:
   type-aliases-package: com.hmdp.entity # 别名扫描包
+
+xxl:
+  job:
+    # xxl-job admin address list, such as "http://address" or "http://address01,http://address02"
+    accessToken: default_token
+    admin:
+      addresses: http://127.0.0.1:8088/xxl-job-admin
+      # xxl-job, access token
+      # xxl-job timeout by second, default 3s
+    # xxl-job executor appname
+    executor:
+      appname: hmdp-executor
+      # xxl-job executor registry-address: default use address to registry , otherwise use ip:port if address is null
+      address: ""
+      # xxl-job executor server-info
+      ip: host.docker.internal
+      port: 9999
+      # xxl-job executor log-path
+      logpath: 'E:/develop/dockercontainerdata/xxl-job'
+      # xxl-job executor log-retention-days
+      logretentiondays: 30
+
 logging:
   level:
     com.hmdp: debug

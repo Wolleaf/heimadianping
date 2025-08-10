@@ -14,12 +14,12 @@ public class ElasticSearchConfig {
     @Bean
     public RestHighLevelClient restHighLevelClient(ElasticSearchProperties elasticSearchProperties) {
         return new RestHighLevelClient(
-                RestClient.builder(new HttpHost(elasticSearchProperties.getUris()))
+                RestClient.builder(new HttpHost(elasticSearchProperties.getUris(), 9200, "http"))
         );
     }
 
-    @Bean
-    public ElasticsearchRestTemplate elasticsearchRestTemplate(RestHighLevelClient restHighLevelClient) {
+    @Bean(name = "elasticsearchTemplate")
+    public ElasticsearchRestTemplate elasticsearchTemplate(RestHighLevelClient restHighLevelClient) {
         return new ElasticsearchRestTemplate(restHighLevelClient);
     }
 }

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmdp.mapper.VoucherOrderMapper">
+
+    <!--
+      获取昨天未支付订单，带分片条件，按创建时间排序，取前size条
+      参数顺序：
+        shardIndex -> shardIndex
+        shardTotal -> shardTotal
+        size -> size
+    -->
+    <select id="getUnpaidOrders" resultType="java.lang.Long">
+        select id
+        from tb_voucher_order
+        where user_id % #{shardTotal} = #{shardIndex}
+          and status = 1
+          and create_time &lt; curdate()
+        order by create_time desc
+        limit #{size}
+    </select>
+
+    <!--
+        更新未支付订单为已取消
+        参数顺序：
+        unpaidVoucherOrderIds -> unpaidVoucherOrderIds
+    -->
+    <update id="updateUnpaid2Canceled">
+        update tb_voucher_order
+        set status = 4
+        where id in
+        <foreach collection="unpaidVoucherOrderIds" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
+
+

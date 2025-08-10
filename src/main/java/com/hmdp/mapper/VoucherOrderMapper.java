@@ -2,6 +2,9 @@ package com.hmdp.mapper;
 
 import com.hmdp.domain.entity.VoucherOrder;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface VoucherOrderMapper extends BaseMapper<VoucherOrder> {
 
+    List<Long> getUnpaidOrders(@Param("shardIndex") int shardIndex, @Param("shardTotal") int shardTotal, @Param("size") int size);
+
+    void updateUnpaid2Canceled(@Param("unpaidVoucherOrderIds") List<Long> unpaidVoucherOrderIds);
 }

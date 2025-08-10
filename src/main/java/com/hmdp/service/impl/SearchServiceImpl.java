@@ -97,6 +97,9 @@ public class SearchServiceImpl implements SearchService {
         if (ObjectUtil.isNotNull(shopSearchDTO.getScore())) {
             boolQueryBuilder.filter(QueryBuilders.rangeQuery("score").gte(shopSearchDTO.getScore()));
         }
+        if (StrUtil.isNotBlank(shopSearchDTO.getOpenHours())) {
+            boolQueryBuilder.must(QueryBuilders.matchQuery("openHours", shopSearchDTO.getOpenHours()));
+        }
         NativeSearchQuery query = new NativeSearchQueryBuilder().withQuery(boolQueryBuilder).build();
         // 查询
         SearchHits<ShopDoc> searchHits = elasticsearchRestTemplate.search(query, ShopDoc.class);

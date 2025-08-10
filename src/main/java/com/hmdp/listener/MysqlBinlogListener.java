@@ -44,13 +44,16 @@ public class MysqlBinlogListener {
      * blog binlog同步到es中
      * @param message Binlog的json格式
      */
-    @KafkaListener(topics = "mysql-binlog")
+    @KafkaListener(topics = "binlog-blog")
     public void blogBinlog2ES(String message) {
-        log.info("");
+        log.info("binlog-blog同步内容:{}",message);
         // 解析binlog
         BinLog binLog = BinlogUtils.parseJsonString2Binlog(message);
-        // 如果不是插入和更新，直接跳过
-        if (OpEnum.isNotInsertOrUpdate(binLog.getOp())) {
+        // 如果是删除，直接跳过
+        if (OpEnum.isDelete(binLog.getOp())) {
+            // 拿到id删除es中的数据
+            Blog blog = binLog.getBefore().toJavaObject(Blog.class);
+            blogESRepository.deleteById(blog.getId());
             return;
         }
         // after肯定有值，先解析after
@@ -58,7 +61,7 @@ public class MysqlBinlogListener {
         // 获取id
         Long id = afterBlog.getId();
         // 如果是更新，则多一步删除
-        if (OpEnum.isUpdate(binLog.getOp())) {
+        if (OpEnum.isReadOrUpdate(binLog.getOp())) {
             blogESRepository.deleteById(id);
         }
         // 转换为doc
@@ -73,13 +76,13 @@ public class MysqlBinlogListener {
      * shop binlog同步到es中
      * @param message Binlog的json格式
      */
-    @KafkaListener(topics = "mysql-binlog")
+    @KafkaListener(topics = "binlog-shop")
     public void shopBinlog2ES(String message) {
-        log.info("");
+        log.info("binlog-shop同步内容:{}",message);
         // 解析binlog
         BinLog binLog = BinlogUtils.parseJsonString2Binlog(message);
-        // 如果不是插入和更新，直接跳过
-        if (OpEnum.isNotInsertOrUpdate(binLog.getOp())) {
+        // 如果是删除，直接跳过
+        if (OpEnum.isDelete(binLog.getOp())) {
             return;
         }
         // after肯定有值，先解析after
@@ -87,7 +90,7 @@ public class MysqlBinlogListener {
         // 获取id
         Long id = afterShop.getId();
         // 如果是更新，则多一步删除
-        if (OpEnum.isUpdate(binLog.getOp())) {
+        if (OpEnum.isReadOrUpdate(binLog.getOp())) {
             shopESRepository.deleteById(id);
         }
         // 转换为doc
@@ -102,13 +105,13 @@ public class MysqlBinlogListener {
      * user binlog同步到es中
      * @param message Binlog的json格式
      */
-    @KafkaListener(topics = "mysql-binlog")
+    @KafkaListener(topics = "binlog-user")
     public void userBinlog2ES(String message) {
-        log.info("");
+        log.info("binlog-user同步内容:{}",message);
         // 解析binlog
         BinLog binLog = BinlogUtils.parseJsonString2Binlog(message);
-        // 如果不是插入和更新，直接跳过
-        if (OpEnum.isNotInsertOrUpdate(binLog.getOp())) {
+        // 如果是删除，直接跳过
+        if (OpEnum.isDelete(binLog.getOp())) {
             return;
         }
         // after肯定有值，先解析after
@@ -116,7 +119,7 @@ public class MysqlBinlogListener {
         // 获取id
         Long id = afterUser.getId();
         // 如果是更新，则多一步删除
-        if (OpEnum.isUpdate(binLog.getOp())) {
+        if (OpEnum.isReadOrUpdate(binLog.getOp())) {
             userESRepository.deleteById(id);
         }
         UserDoc userDoc = userConverter.user2UserDoc(afterUser);

@@ -13,6 +13,6 @@ public interface ShopConverter {
 
     @Mapping(target = "type", ignore = true)
     @Mapping(target = "location",
-            expression = "java(new GeoPoint(shop.getX(), shop.getY()))")
+            expression = "java(new org.springframework.data.elasticsearch.core.geo.GeoPoint(shop.getX(), shop.getY()))")
     ShopDoc shop2ShopDoc(Shop shop);
 }
