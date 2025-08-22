@@ -1,0 +1,41 @@
+dataSources:
+  ds0:
+    dataSourceClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3306/hmdp_0  # 分库需不同库名
+    username: root
+    password: mysql
+  ds1:
+    dataSourceClassName: com.mysql.cj.jdbc.Driver
+    jdbcUrl: jdbc:mysql://localhost:3307/hmdp_1  # 分库需不同库名
+    username: root
+    password: mysql
+
+rules:
+  - !SHARDING
+    tables:
+      t_order:
+        # 分库分表：ds0/ds1 库中各含 t_order_0/t_order_1 表
+        actualDataNodes: ds${0..1}.t_order_${0..1}
+        # 分库策略（按 user_id 路由到不同库）
+        databaseStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: db_inline
+        # 分表策略（按 user_id 路由到不同表）
+        tableStrategy:
+          standard:
+            shardingColumn: user_id
+            shardingAlgorithmName: table_inline
+    shardingAlgorithms:
+      # 分库算法：user_id % 2 决定库序号
+      db_inline:
+        type: INLINE
+        props:
+          algorithm-expression: ds${user_id % 2}  # 结果取 0 或 1
+      # 分表算法：user_id % 2 决定表后缀
+      table_inline:
+        type: INLINE
+        props:
+          algorithm-expression: t_order_${user_id % 2}  # 结果取 0 或 1
+props:
+  sql-show: true

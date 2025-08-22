@@ -9,8 +9,8 @@ spring:
   profiles:
     active: dev
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: ${spring.datasource.url}
+    driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
+    url: jdbc:shardingsphere:classpath:shardingsphere-config.yaml
     username: ${spring.datasource.username}
     password: ${spring.datasource.password}
   redis:
