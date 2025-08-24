@@ -36,6 +36,12 @@ public class BlogController {
         return Result.success(blogId);
     }
 
+    /**
+     * 点赞
+     * @param id 博文id
+     * @return
+     */
+    @ApiOperation("点赞博文")
     @PutMapping("/like/{id}")
     public Result likeBlog(@PathVariable("id") Long id) {
         // 修改点赞数量
@@ -43,6 +49,12 @@ public class BlogController {
         return Result.success();
     }
 
+    /**
+     * 查询博文点赞用户列表
+     * @param id
+     * @return
+     */
+    @ApiOperation("查询博文点赞用户列表")
     @GetMapping("/likes/{id}")
     public Result queryBlogLikes(@PathVariable("id") Long id) {
         List<UserDTO> list = blogService.queryBlogLikes(id);
@@ -87,6 +99,13 @@ public class BlogController {
         return Result.success(blog);
     }
 
+    /**
+     * 查询关注的更新的，一次看2条，滚动获取
+     * @param max
+     * @param offset
+     * @return
+     */
+    @ApiOperation("查询关注的更新的博文列表")
     @GetMapping("/of/follow")
     public Result queryBlogOfFollow(
             @RequestParam("lastId") Long max,

@@ -56,8 +56,10 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
             if (result == 1) throw new VoucherException(MessageConstants.SECKILL_STOCK_EMPTY);
             else throw new VoucherException(MessageConstants.REPEAT_SECKILL);
         }
-        // 抢券成功，发送到消息队列中异步处理
+        // 抢券成功
+        // 生成订单id
         Long orderId = redisIdGenerator.nextId("order");
+        // 发送到消息队列中异步处理
         SeckillVoucherOrderDTO seckillVoucherOrderDTO = new SeckillVoucherOrderDTO(orderId, voucherId, userId);
         kafkaTemplate.send(KafkaTopicConstants.SECKILL_VOUCHER_ORDER, seckillVoucherOrderDTO);
         return orderId;

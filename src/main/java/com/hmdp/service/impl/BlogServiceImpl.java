@@ -130,6 +130,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         // 保存探店博文
         save(blog);
         // 查询粉丝
+        // 使用推模式，将博文id保存到粉丝的收件箱中
         List<Follow> fans = followService.lambdaQuery().eq(Follow::getFollowUserId, user.getId()).list();
         for (Follow fan : fans) {
             String key = RedisConstants.FEED_KEY + fan.getUserId();
