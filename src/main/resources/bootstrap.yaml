@@ -11,8 +11,6 @@ spring:
   datasource:
     driver-class-name: org.apache.shardingsphere.driver.ShardingSphereDriver
     url: jdbc:shardingsphere:classpath:shardingsphere-config.yaml
-    username: ${spring.datasource.username}
-    password: ${spring.datasource.password}
   redis:
     host: ${spring.redis.host}
     port: ${spring.redis.port}
@@ -38,6 +36,7 @@ spring:
       uris: localhost
   jackson:
     default-property-inclusion: non_null # JSON处理时忽略非空字段
+    date-format: java.text.SimpleDateFormat
   cloud:
     nacos:
       config:
@@ -88,7 +87,7 @@ xxl:
       ip: host.docker.internal
       port: 9999
       # xxl-job executor log-path
-      logpath: 'E:/develop/dockercontainerdata/xxl-job'
+      logpath: 'E:\develop\dockercontainerdata\xxl-job\log'
       # xxl-job executor log-retention-days
       logretentiondays: 30
 
