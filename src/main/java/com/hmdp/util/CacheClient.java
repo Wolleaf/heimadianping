@@ -6,6 +6,8 @@ import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +23,7 @@ import java.util.function.Function;
 public class CacheClient {
 
     private final StringRedisTemplate stringRedisTemplate;
+    private final RedissonClient redissonClient;
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     /**
@@ -113,7 +116,8 @@ public class CacheClient {
         }
         // 过期了就获取互斥锁，开启新线程更新缓存
         String lockKey = "lock:" + key;
-        if (tryLock(lockKey)) {
+        RLock lock = redissonClient.getLock(lockKey);
+        if (lock.tryLock()) {
             executorService.submit(() -> {
                 try {
                     // 查询最新数据
@@ -123,7 +127,7 @@ public class CacheClient {
                     data.setData(temp);
                     stringRedisTemplate.opsForValue().set(key, JSONUtil.toJsonStr(data));
                 } finally {
-                    unlock(lockKey);
+                    lock.unlock();
                 }
             });
         }
